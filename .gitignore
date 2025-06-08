@@ -1,0 +1,9 @@
+*.json
+
+# Media files
+*.mp4
+*.mp3
+*.wav
+
+# Whitelist files
+!.prettierrc.json
