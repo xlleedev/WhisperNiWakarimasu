@@ -3,8 +3,9 @@ import json
 import pyperclip
 import time
 from moviepy import VideoFileClip
+from furigana import furiganify
 
-PROMPT_TEMPLATE = "Please translate this into chinese:\n{}\nand return it in this format: \n [{{'id': id, 'explanation': [{{'word': word, 'meaning': meaning, 'ruby_tag': false/rubytaginhtmlforkanji, 'romaji': romaji}}]}}]\nThank you"
+PROMPT_TEMPLATE = "Please translate this into chinese:\n{}\nand return it in this format: \n [{{'id': id, 'explanation': [{{'word': word, 'meaning': meaning, 'ruby_tag': false/furigana, 'romaji': romaji}}]}}]\nThank you"
 
 def convert_video_to_mp3(filename):
     video = VideoFileClip(filename) 
@@ -40,7 +41,7 @@ def loadjson(jsonfile, aoi):
 
 aoi = {}
 while True:
-    print("1. Convert video to Mp3 files\n2. Transcribe\n3. Load JSON")
+    print("1. Convert video to Mp3 files\n2. Transcribe\n3. Load JSON\n4. Generate ruby text")
     input_text = input("Which: ")
     match input_text:
         case "1":
@@ -63,6 +64,18 @@ while True:
                     aoi = json.load(f)
 
             loadjson(jsonfile, aoi)
+        case "4":
+            with open("text2.json", "r", encoding="utf-8") as f:
+                kuroi = json.load(f)
+
+            for index, text1 in enumerate(kuroi["0"]):
+                for word in text1["explanation"]:
+                    word["ruby_tag"] = furiganify(word["word"])
+
+
+            with open("text2.json", "w", encoding="utf-8") as f:
+                json.dump(kuroi, f, ensure_ascii=False, indent=2)
+            
     
 
 
