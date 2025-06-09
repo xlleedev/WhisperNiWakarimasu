@@ -5,7 +5,7 @@ import time
 from moviepy import VideoFileClip
 from furigana import furiganify
 
-PROMPT_TEMPLATE = "Please translate this into chinese:\n{}\nand return it in this format: \n [{{'id': id, 'explanation': [{{'word': word, 'meaning': meaning, 'ruby_tag': false/furigana, 'romaji': romaji}}]}}]\nThank you"
+PROMPT_TEMPLATE = "Please translate this into chinese:\n{}\nand return it in this format: \n [{{'id': id, 'explanation': [{{'word': word, 'meaning': meaning, 'romaji': romaji}}]}}]\nThank you"
 
 def convert_video_to_mp3(filename):
     video = VideoFileClip(filename) 
