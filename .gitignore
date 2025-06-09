@@ -5,5 +5,7 @@
 *.mp3
 *.wav
 
+__pycache__/
+
 # Whitelist files
 !.prettierrc.json
